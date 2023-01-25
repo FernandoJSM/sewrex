@@ -1,5 +1,3 @@
-# sewrex
-
 <p align="center">
 <img src="sewrex.png" class="img-responsive" alt="sewrex logo">
 </p>
