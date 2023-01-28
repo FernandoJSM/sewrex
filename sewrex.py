@@ -10,6 +10,7 @@ class Color(str, Enum):
     YELLOW = '\033[93m'
     GREY = '\033[37m'
 
+
 class Sewrex:
     def __init__(self, source, pattern):
         self.source = source
@@ -53,9 +54,6 @@ class Sewrex:
                 row = Color.YELLOW + str(i) + Color.RESET
             line_print = '{:>' + len_line + '} {}'
             print(line_print.format(row, line))
-
-        # for line in text_highlighted:
-        #     print(line)
 
 
 # TODO: Comentários inglês, explicação conforme um padrão
