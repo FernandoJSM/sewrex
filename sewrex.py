@@ -22,20 +22,32 @@ class Sewrex:
             text = f.readlines()
             # TODO: Erro de não ler linhas
 
+        text_highlighted = text.copy()
+
         found = list()
 
-        for line in text:
-            search = re.finditer(pattern=self.pattern, string=line)
+        for i, line in enumerate(text):
+            search = re.findall(pattern=self.pattern, string=line)
 
-            for result in search:
+            if len(search) == 0:
+                continue
 
-                # line[result.start():result.end()]
-                a = 1
+            iter_find = re.finditer(pattern=self.pattern, string=line)
+
+            split = re.split(pattern=self.pattern, string=line)
+            new_line = split[0]
+            next_section = 1
+
+            for result in iter_find:
+                new_line += Color.YELLOW + line[result.start():result.end()] + Color. RESET
+                new_line += split[next_section]
+                next_section += 1
+            print(new_line)
             a = 1
 
 
 # TODO: Comentários inglês, explicação conforme um padrão
-
+# TODO: Testes com o WSL
 
 if __name__ == "__main__":
 
