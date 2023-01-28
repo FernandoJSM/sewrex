@@ -10,9 +10,6 @@ class Color(str, Enum):
     YELLOW = '\033[93m'
     GREY = '\033[37m'
 
-
-# TODO: Função Print
-
 class Sewrex:
     def __init__(self, source, pattern):
         self.source = source
@@ -62,7 +59,9 @@ class Sewrex:
 
 
 # TODO: Comentários inglês, explicação conforme um padrão
-# TODO: Testes com o WSL
+# TODO: Adicionar Args
+# TODO: Documentar funções
+# TODO: Atualizar README
 
 if __name__ == "__main__":
 
