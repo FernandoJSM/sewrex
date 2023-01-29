@@ -1,3 +1,4 @@
+import argparse
 import re
 from enum import Enum
 
@@ -42,7 +43,9 @@ class Sewrex:
             next_section = 1
 
             for result in iter_find:
-                new_line += Color.YELLOW + line[result.start():result.end()] + Color.GRAY
+                new_line += (
+                    Color.YELLOW + line[result.start() : result.end()] + Color.GRAY
+                )
                 new_line += split[next_section]
                 next_section += 1
                 self.text_highlighted[i] = new_line
@@ -75,19 +78,54 @@ class Sewrex:
             row = Color.RESET + str(i) + Color.GRAY
             if i in self.highlight_lines:
                 row = Color.YELLOW + str(i) + Color.GRAY
-            line_print = '{:>' + len_line + '} {}'
-            print(line_print.format(row, line))
+            print(f'{row} {line}')
 
 
 # TODO: Comentários inglês, explicação conforme um padrão
 # TODO: Adicionar Args
 # TODO: Documentar funções
 # TODO: Atualizar README
+# TODO: Erros (Regex falso;Erro no arquivo; Não encontrou nada)
+# TODO: Printar quantos resultados encontrados
 
-if __name__ == "__main__":
-    s = 'test.txt'
-    p = '[0-9]{4}\-[0-9]{4}'
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser(
+        description='Sewrex (Search With Regular Expression) is a python script to be executed in the console,'
+        'performing search in text files with regular expression. Sewrex uses only python built-in'
+        ' libraries.'
+    )
 
-    sewrex = Sewrex(source=s, pattern=p, dilation=3)
+    parser.add_argument('-s', metavar='--source', type=str, help='Source text file')
+
+    parser.add_argument(
+        '-re', metavar='--regex', type=str, help='Regular expression pattern'
+    )
+
+    parser.add_argument(
+        '-d',
+        metavar='--dilation',
+        type=int,
+        help='(Optional) Defines how many lines will be printed with dilation up to 10 lines. Default is 1 line',
+        default=1,
+        choices=range(1, 10),
+    )
+
+    parser.add_argument(
+        '-p',
+        metavar='--print',
+        type=bool,
+        help='(Optional) Boolean flag to print all the text, default is False',
+        default=False,
+        choices=[True, False],
+    )
+
+    args = parser.parse_args()
+
+    sewrex = Sewrex(
+        source=args.s,
+        pattern=args.re,
+        dilation=args.d,
+        print_all=args.p,
+    )
     sewrex.search()
     sewrex.print_result()
